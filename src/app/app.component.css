@@ -1,0 +1,5 @@
+:host {
+  display: block; /*Needed because default elements on Angular are created as inline and you cannot set the dimensions*/
+  height: 100%;
+  width: 100%;
+}
