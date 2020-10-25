@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +8,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CompletedTasksComponent } from './tasks/completed-tasks/completed-tasks.component';
 import { CurrentTaskComponent } from './tasks/current-task/current-task.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NewTaskComponent } from './tasks/new-task/new-task.component';
@@ -31,7 +32,8 @@ import { TasksComponent } from './tasks/tasks.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

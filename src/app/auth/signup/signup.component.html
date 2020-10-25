@@ -1,5 +1,7 @@
 <section class="signup-form">
-  <form fxLayout="column" fxLayoutAlign="center center" #signupForm="ngForm" (ngSubmit)="clickOnEnter(signupForm)">
+  <form fxLayout="column" fxLayoutAlign="center center"
+  #signupForm="ngForm" (ngSubmit)="clickOnEnter(signupForm)"
+  fxLayoutGap="1rem">
     <mat-form-field>
       <input type="email"
       matInput
@@ -25,6 +27,22 @@
       <mat-hint align="start">Should be at least 7 characters long.</mat-hint>
       <mat-error>Should be at least 7 characters long.</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" class="button">Enter</button>
+    <mat-form-field>
+      <input matInput
+      placeholder="Your birthdate"
+      [matDatepicker]="picker"
+      [max]="maxDate"
+      ngModel
+      name="birthdate"
+      required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-checkbox
+    ngModel
+    name="acceptTerms"
+    required>Accept Terms and Conditions.</mat-checkbox>
+    <button type="submit" mat-raised-button color="primary" class="button"
+    [disabled]="signupForm.invalid">Enter</button>
   </form>
 </section>
