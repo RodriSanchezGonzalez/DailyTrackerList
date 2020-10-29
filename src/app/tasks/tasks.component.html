@@ -1,1 +1,5 @@
-<p>tasks works!</p>
+<mat-tab-group *ngIf="!onGoingTask">
+  <mat-tab label="New Task"> <app-new-task (newTaskStarted)="toggleOnGoinTask()"></app-new-task> </mat-tab>
+  <mat-tab label="Completed Tasks"> <app-completed-tasks></app-completed-tasks> </mat-tab>
+</mat-tab-group>
+<app-current-task *ngIf="onGoingTask" (taskEnded)="toggleOnGoinTask()"></app-current-task>

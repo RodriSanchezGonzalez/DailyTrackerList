@@ -1,1 +1,30 @@
-<p>new-task works!</p>
+<mat-card fxFlex.xs="100%" fxFlex.gt-xs="25rem" class="new-task">
+  <mat-card-title fxLayoutAlign="center">Time to new task!</mat-card-title>
+  <mat-card-content fxLayoutAlign="center">
+    <mat-form-field>
+      <mat-select placeholder="Type of task">
+        <mat-option value="coding">
+          Analysis
+        </mat-option>
+        <mat-option value="coding">
+          Desing
+        </mat-option>
+        <mat-option value="coding">
+          Coding
+        </mat-option>
+        <mat-option value="testing">
+          Testing
+        </mat-option>
+        <mat-option value="coding">
+          Architecture
+        </mat-option>
+        <mat-option value="coding">
+          Deploy
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="center">
+    <button type="sumbit" mat-button color="primary" (click)="clickStartNewTaks()">Start</button>
+  </mat-card-actions>
+</mat-card>

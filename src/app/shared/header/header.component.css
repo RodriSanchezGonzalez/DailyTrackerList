@@ -1,0 +1,14 @@
+a {
+  text-decoration: none;
+  color: white;
+  margin-right: 2rem;
+}
+
+a:hover,
+a:active {
+  color: lightseagreen;
+}
+
+.logo {
+  cursor: pointer;
+}

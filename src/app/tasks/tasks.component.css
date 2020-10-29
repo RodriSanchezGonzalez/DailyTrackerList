@@ -1,0 +1,10 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+mat-tab-group {
+  height: 100%;
+  width: 100%;
+}

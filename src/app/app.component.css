@@ -3,7 +3,10 @@
   height: 100%;
   width: 100%;
 }
-
+main {
+  height: 100%;
+  width: 100%;
+}
 mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
@@ -11,24 +14,4 @@ mat-sidenav {
 }
 mat-sidenav {
   width: 15.625rem;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-  margin-right: 2rem;
-}
-
-a:hover,
-a:active {
-  color: lightseagreen;
-}
-
-.logo {
-  cursor: pointer;
-}
-
-.nav-span {
-  display: inline-block;
-  margin-left: 1rem;
 }

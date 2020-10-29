@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+  onGoingTask: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.onGoingTask = false;
+  }
+
+  toggleOnGoinTask(): void{
+    this.onGoingTask = !this.onGoingTask;
   }
 
 }

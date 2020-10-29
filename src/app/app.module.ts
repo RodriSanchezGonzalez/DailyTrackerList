@@ -8,11 +8,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CompletedTasksComponent } from './tasks/completed-tasks/completed-tasks.component';
 import { CurrentTaskComponent } from './tasks/current-task/current-task.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { NgModule } from '@angular/core';
+import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { StopTaskComponent } from './tasks/current-task/stop-task.component';
 import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
@@ -24,8 +27,11 @@ import { TasksComponent } from './tasks/tasks.component';
     CurrentTaskComponent,
     NewTaskComponent,
     CompletedTasksComponent,
-    HomeComponent
-  ],
+    HomeComponent,
+    HeaderComponent,
+    SidenavListComponent,
+    StopTaskComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

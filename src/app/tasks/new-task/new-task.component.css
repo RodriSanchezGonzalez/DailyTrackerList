@@ -1,0 +1,11 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.new-task {
+  padding: 2rem;
+}
