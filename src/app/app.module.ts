@@ -3,11 +3,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CompletedTasksComponent } from './tasks/completed-tasks/completed-tasks.component';
 import { CurrentTaskComponent } from './tasks/current-task/current-task.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -17,6 +18,7 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
 import { SignupComponent } from './auth/signup/signup.component';
 import { StopTaskComponent } from './tasks/current-task/stop-task.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TasksService } from './services/tasks.service';
 
 @NgModule({
   declarations: [
@@ -39,9 +41,9 @@ import { TasksComponent } from './tasks/tasks.component';
     AngularMaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AuthService, TasksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

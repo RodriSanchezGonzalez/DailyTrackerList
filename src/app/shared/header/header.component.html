@@ -2,9 +2,9 @@
   <button mat-icon-button (click)="onToggle()" fxHide.gt-xs><mat-icon>code</mat-icon></button>
   <div routerLink="/" class="logo">LOGO</div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-    <a routerLink="/signup">Signup</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/tasks">Tasks</a>
-    <a >Logout</a>
+    <a routerLink="/signup" *ngIf="!isAuth">Signup</a>
+    <a routerLink="/login" *ngIf="!isAuth">Login</a>
+    <a routerLink="/tasks" *ngIf="isAuth">Tasks</a>
+    <a *ngIf="isAuth" (click)="clickOnLogout()" class="logout">Logout</a>
   </div>
 </mat-toolbar>

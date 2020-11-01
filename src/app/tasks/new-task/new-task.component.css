@@ -1,11 +1,19 @@
 :host {
+  padding: 1rem;
+  overflow: none;
+  display: block;
+}
+
+.newTaskForm {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 1rem;
 }
 
 .new-task {
   padding: 2rem;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
 }

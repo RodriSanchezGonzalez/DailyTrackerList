@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { StopTaskComponent } from './stop-task.component';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-current-task',
@@ -9,14 +10,11 @@ import { StopTaskComponent } from './stop-task.component';
   styleUrls: ['./current-task.component.css']
 })
 export class CurrentTaskComponent implements OnInit {
-  @Output() taskEnded = new EventEmitter();
-  hoursTimer: number;
-  minutesTimer: number;
   secondsTimer: number;
   timerInterval: any;
   barMode: string;
-
-  constructor(private dialog: MatDialog) { }
+  /*TODO: If the user go away of this view we have to cancell the current task */
+  constructor(private dialog: MatDialog, private taskService: TasksService) { }
 
   ngOnInit(): void {
     this.secondsTimer = 0;
@@ -43,13 +41,21 @@ export class CurrentTaskComponent implements OnInit {
       }});
       dialogReference.afterClosed().subscribe(result => {
         if (result){
-          this.taskEnded.emit();
+          this.taskService.completedTask(this.secondsTimer);
         }
         else{
           this.barMode = 'indeterminate';
           this.setTimers();
         }
       });
+  }
+
+  secondsToHour(secondsTimer: number): number{
+    return secondsTimer / 3600;
+  }
+
+  secondsToMinutes(secondsTimer: number): number{
+    return secondsTimer / 60;
   }
 
   }

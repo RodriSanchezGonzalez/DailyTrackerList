@@ -9,3 +9,22 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* .mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  overflow-y: hidden !important;
+}
+
+.group-tab .mat-tab-body-wrapper {
+  height: 100%;
+  overflow: hidden !important;
+} */
+
+.mat-card-actions,
+.mat-card-subtitle,
+.mat-card-content {
+  flex-direction: column !important;
+}

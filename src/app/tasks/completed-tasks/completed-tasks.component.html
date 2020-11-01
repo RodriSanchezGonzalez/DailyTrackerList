@@ -1,1 +1,32 @@
-<p>completed-tasks works!</p>
+<div fxLayout fxLayoutAlign="center">
+<mat-form-field>
+  <mat-label>Filter the table</mat-label>
+  <input matInput type="text" (keyup)="doFilter($event.target.value)" name="filter">
+</mat-form-field>
+</div>
+<mat-table [dataSource]="completedTasks" matSort>
+  <ng-container matColumnDef="proyect">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Proyect</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.proyect}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="typeOf">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.typeOf.typeTaks}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="secondsDuration">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Duration</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{secondsToHour(element.secondsDuration) | number:'2.0-0'}}:{{secondsToMinutes(element.secondsDuration) | number:'2.0-0'}}:{{element.secondsDuration % 60  | number:'2.0-0' }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="finishDate" >
+    <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.finishDate | date}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="state" >
+    <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.state}}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>

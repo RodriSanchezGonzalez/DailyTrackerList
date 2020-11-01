@@ -12,3 +12,7 @@ a:active {
 .logo {
   cursor: pointer;
 }
+
+.logout {
+  cursor: pointer;
+}

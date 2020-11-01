@@ -4,7 +4,10 @@
   display: flex;
 }
 
-mat-tab-group {
+mat-tab-group,
+mat-lab,
+mat-tab-body-content {
   height: 100%;
   width: 100%;
+  overflow: none !important;
 }

@@ -1,5 +1,5 @@
 <section>
-  <h1>In progress... {{secondsTimer/3600 | number:'2.0-0'}}:{{secondsTimer/60 | number:'2.0-0'}}:{{secondsTimer % 60  | number:'2.0-0' }}</h1>
+  <h1>In progress... {{secondsToHour(secondsTimer) | number:'2.0-0'}}:{{secondsToMinutes(secondsTimer) | number:'2.0-0'}}:{{secondsTimer % 60  | number:'2.0-0' }}</h1>
   <p>Come on friend, the end is near</p>
   <mat-progress-bar [mode]="barMode" value="50"></mat-progress-bar>
   <button mat-raised-button color="warn" class="button" (click)="clickOnStop()">Stop</button>
