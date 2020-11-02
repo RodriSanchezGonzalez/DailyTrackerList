@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task.model';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -11,22 +12,27 @@ import { TasksService } from 'src/app/services/tasks.service';
   templateUrl: './completed-tasks.component.html',
   styleUrls: ['./completed-tasks.component.css']
 })
-export class CompletedTasksComponent implements OnInit , AfterViewInit{
+export class CompletedTasksComponent implements OnInit , AfterViewInit, OnDestroy{
   completedTasks = new MatTableDataSource<Task>();
   displayedColumns: string[] = ['proyect', 'typeOf', 'secondsDuration', 'finishDate', 'state'];
+  subscription: Subscription;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private taskService: TasksService) { }
 
   ngOnInit(): void {
-    this.completedTasks.data = this.taskService.getCompletedTasks();
+    this.subscription = this.taskService.finishedTasks.subscribe(result => this.completedTasks.data = result);
+    this.taskService.fetchCompletedTasks();
   }
 
   ngAfterViewInit(): void{
     this.completedTasks.sort = this.sort;
     this.completedTasks.paginator = this.paginator;
+  }
 
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   secondsToHour(secondsTimer: number): number{

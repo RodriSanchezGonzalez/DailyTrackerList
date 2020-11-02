@@ -1,5 +1,8 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +22,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { StopTaskComponent } from './tasks/current-task/stop-task.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TasksService } from './services/tasks.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,9 @@ import { TasksService } from './services/tasks.service';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [AuthService, TasksService],
   bootstrap: [AppComponent]

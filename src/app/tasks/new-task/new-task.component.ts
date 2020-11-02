@@ -1,9 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { Task } from 'src/app/models/task.model';
 import { TasksService } from 'src/app/services/tasks.service';
 import { TypeTask } from 'src/app/models/task-types.model';
+import { types } from 'util';
+import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 
 @Component({
   selector: 'app-new-task',
@@ -12,18 +15,18 @@ import { TypeTask } from 'src/app/models/task-types.model';
 })
 export class NewTaskComponent implements OnInit {
   proyect: string;
-  typesOfTaks: TypeTask[] = [];
 
-  constructor(private tasksService: TasksService) { }
+
+  constructor(public tasksService: TasksService) { }
 
   ngOnInit(): void {
-    this.typesOfTaks = this.tasksService.getAvaibleTypeTasks();
+    this.tasksService.getAvailableTypesOfTasks();
   }
 
   clickStartNewTaks(form: NgForm ): void{
+    const dateStamp = new Date();
     this.tasksService.startTask({
-      id:  new Date().toString() + form.value.tasksType,
-      typeOf: this.typesOfTaks.find(type => type.id === form.value.tasksType),
+      typeOf: form.value.tasksType,
       proyect:  form.value.proyect
     });
   }

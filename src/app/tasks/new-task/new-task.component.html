@@ -4,11 +4,10 @@
   <mat-card-content fxLayoutAlign="center">
     <mat-form-field>
       <mat-select placeholder="Type of task" ngModel name="tasksType" required>
-        <mat-option *ngFor="let type of typesOfTaks" [value]="type.id">
-          {{type.typeTaks}}
+        <mat-option *ngFor="let type of tasksService.availableTasksTypes | async" [value]="type">
+          {{type.typeTask}}
         </mat-option>
-            </mat-select>
-
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Introduce a proyect</mat-label>

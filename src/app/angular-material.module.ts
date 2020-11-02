@@ -12,6 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -36,7 +37,8 @@ import { NgModule } from '@angular/core';
             MatDialogModule,
             MatTableModule,
             MatSortModule,
-            MatPaginatorModule
+            MatPaginatorModule,
+            MatSnackBarModule
           ],
   exports: [MatButtonModule,
             MatIconModule,
@@ -55,7 +57,8 @@ import { NgModule } from '@angular/core';
             MatDialogModule,
             MatTableModule,
             MatSortModule,
-            MatPaginatorModule
+            MatPaginatorModule,
+            MatSnackBarModule
           ]
 })
 

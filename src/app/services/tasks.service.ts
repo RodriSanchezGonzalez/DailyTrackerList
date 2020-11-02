@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Task } from '../models/task.model';
@@ -15,25 +16,16 @@ export class TasksService {
 //     { id: '0000000005', typeOf: 'Deploy', secondsDuration: 787787 ,  proyect: 'Task Tracker'},
 //     { id: '0000000006', typeOf: 'Testing', secondsDuration: 1002910 ,  proyect: 'Dating App'},
 //   ];
-  private completedTasks: Task[] = [];
+
 
   taskChanged = new Subject<Task>();
+  availableTasksTypes = new Subject<TypeTask[]>();
+  finishedTasks = new Subject<Task[]>();
 
   private onGoingTask: Task;
 
-  private avaibleTypesTasks: TypeTask[] = [
-    {id: 1, typeTaks: 'Analysis'},
-    {id: 2, typeTaks: 'Coding'},
-    {id: 3, typeTaks: 'Testing'},
-    {id: 4, typeTaks: 'Architecture'},
-    {id: 5, typeTaks: 'Deploy'},
-  ];
+  constructor( private firestoreDB: AngularFirestore) { }
 
-  constructor() { }
-
-  getAvaibleTypeTasks(): TypeTask[]{
-    return this.avaibleTypesTasks.slice();
-  }
 
   startTask(createdTask: Task): void{
     this.onGoingTask = {...createdTask};
@@ -41,7 +33,7 @@ export class TasksService {
   }
 
   completedTask(secondsDuration: number): void{
-    this.completedTasks.push({...this.onGoingTask,
+    this.addDataToDatabase({...this.onGoingTask,
                               finishDate: new Date(),
                               state : 'completed',
                               secondsDuration});
@@ -50,7 +42,7 @@ export class TasksService {
   }
 
   cancellTask(secondsDuration: number): void{
-    this.completedTasks.push({...this.onGoingTask,
+    this.addDataToDatabase({...this.onGoingTask,
       finishDate: new Date(),
       state : 'cancelled',
       secondsDuration});
@@ -62,8 +54,28 @@ export class TasksService {
     return {...this.onGoingTask};
   }
 
-  getCompletedTasks(): Task[]{
-    return this.completedTasks.slice();
+  fetchCompletedTasks(): void{
+    this.firestoreDB.collection('finishedTasks').valueChanges()
+    .subscribe((result: Task[]) => {
+      this.finishedTasks.next(result);
+     }
+     , error => {
+      console.log(error);
+    });
+  }
+
+  getAvailableTypesOfTasks(): void{
+    /*TODO: Keep the subscription and unsubscribe on destroy*/
+    this.firestoreDB.collection('availableTaskTypes')
+    .valueChanges().subscribe((result: TypeTask[]) => {
+      this.availableTasksTypes.next(result.slice());
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private addDataToDatabase(task: Task): void{
+      this.firestoreDB.collection('finishedTasks').add(task);
   }
 
 }

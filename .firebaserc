@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tasktrackerng": {
+      "hosting": {
+        "daily-tasks-tracker": [
+          "tasktrackerng"
+        ]
+      }
+    }
+  }
+}
