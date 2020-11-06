@@ -24,7 +24,6 @@ export class NewTaskComponent implements OnInit {
   }
 
   clickStartNewTaks(form: NgForm ): void{
-    const dateStamp = new Date();
     this.tasksService.startTask({
       typeOf: form.value.tasksType,
       proyect:  form.value.proyect

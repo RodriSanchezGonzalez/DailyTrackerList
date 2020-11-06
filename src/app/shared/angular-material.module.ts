@@ -10,6 +10,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -38,7 +39,8 @@ import { NgModule } from '@angular/core';
             MatTableModule,
             MatSortModule,
             MatPaginatorModule,
-            MatSnackBarModule
+            MatSnackBarModule,
+            MatProgressSpinnerModule
           ],
   exports: [MatButtonModule,
             MatIconModule,
@@ -58,7 +60,8 @@ import { NgModule } from '@angular/core';
             MatTableModule,
             MatSortModule,
             MatPaginatorModule,
-            MatSnackBarModule
+            MatSnackBarModule,
+            MatProgressSpinnerModule
           ]
 })
 

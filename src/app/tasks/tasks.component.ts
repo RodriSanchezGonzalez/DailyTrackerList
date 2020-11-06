@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { TasksService } from '../services/tasks.service';
+import { delay } from 'rxjs-compat/operator/delay';
 
 @Component({
   selector: 'app-tasks',
@@ -18,8 +19,9 @@ export class TasksComponent implements OnInit {
     this.onGoingTask = false;
     this.exerciseSubscription = this.tasksService.taskChanged.subscribe(task => {
       if (task){
+        this.tasksService.creatingNewTask.next(false);
         this.onGoingTask = true;
-      } else{
+       } else{
         this.onGoingTask = false;
       }
     });

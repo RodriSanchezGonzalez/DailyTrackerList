@@ -43,6 +43,7 @@
     name="acceptTerms"
     required>Accept Terms and Conditions.</mat-checkbox>
     <button type="submit" mat-raised-button color="primary" class="button"
-    [disabled]="signupForm.invalid">Enter</button>
+    [disabled]="signupForm.invalid" *ngIf="(this.authService.loadingLoginOrRegistration | async) != true">Enter</button>
+    <mat-spinner *ngIf="this.authService.loadingLoginOrRegistration | async"></mat-spinner>
   </form>
 </section>

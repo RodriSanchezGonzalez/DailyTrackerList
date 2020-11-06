@@ -13,6 +13,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   authChange = new Subject<boolean>();
+  loadingLoginOrRegistration = new Subject<boolean>();
   private user: User;
   private isAuthenticated = false;
 
@@ -22,17 +23,23 @@ export class AuthService {
    }
 
    registerUser(authData: AuthData): void{
+     this.loadingLoginOrRegistration.next(true);
      this.angularFireAuth.createUserWithEmailAndPassword(authData.email, authData.password)
-     .then(result => console.log(result))
-     .catch(error =>
-      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'})
-      );
+     .then(result => this.loadingLoginOrRegistration.next(false))
+    .catch(error => {
+      this.loadingLoginOrRegistration.next(false);
+      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
+    } );
    }
 
    login(authData: AuthData): void{
+    this.loadingLoginOrRegistration.next(true);
     this.angularFireAuth.signInWithEmailAndPassword(authData.email, authData.password)
-    .then(result => console.log(result))
-    .catch(error =>  this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'}));
+    .then(result => this.loadingLoginOrRegistration.next(false))
+    .catch(error => {
+      this.loadingLoginOrRegistration.next(false);
+      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
+    } );
    }
 
    initAuthListener(): void{

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+
+  constructor(private formBuilder: FormBuilder, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm =  this.formBuilder.group({

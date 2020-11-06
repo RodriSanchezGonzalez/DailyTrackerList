@@ -3,12 +3,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularMaterialModule } from './angular-material.module';
+import { AngularMaterialModule } from './shared/angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { CompletedTasksComponent } from './tasks/completed-tasks/completed-tasks.component';
 import { CurrentTaskComponent } from './tasks/current-task/current-task.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -27,28 +28,29 @@ import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     SignupComponent,
     LoginComponent,
     TasksComponent,
-    CurrentTaskComponent,
-    NewTaskComponent,
-    CompletedTasksComponent,
-    HomeComponent,
     HeaderComponent,
     SidenavListComponent,
+    NewTaskComponent,
+    CurrentTaskComponent,
+    CompletedTasksComponent,
     StopTaskComponent
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
+    CommonModule,
     FlexLayoutModule,
+    AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [AuthService, TasksService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs/Subject';
 import { Task } from '../models/task.model';
 import { TypeTask } from '../models/task-types.model';
@@ -21,13 +22,16 @@ export class TasksService {
   taskChanged = new Subject<Task>();
   availableTasksTypes = new Subject<TypeTask[]>();
   finishedTasks = new Subject<Task[]>();
+  creatingNewTask = new Subject<boolean>();
 
   private onGoingTask: Task;
 
-  constructor( private firestoreDB: AngularFirestore) { }
+  constructor( private firestoreDB: AngularFirestore,
+               private snackBar: MatSnackBar) { }
 
 
   startTask(createdTask: Task): void{
+    this.creatingNewTask.next(true);
     this.onGoingTask = {...createdTask};
     this.taskChanged.next({...this.onGoingTask});
   }
@@ -60,7 +64,7 @@ export class TasksService {
       this.finishedTasks.next(result);
      }
      , error => {
-      console.log(error);
+      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
     });
   }
 
@@ -70,7 +74,7 @@ export class TasksService {
     .valueChanges().subscribe((result: TypeTask[]) => {
       this.availableTasksTypes.next(result.slice());
     }, error => {
-      console.log(error);
+      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
     });
   }
 
