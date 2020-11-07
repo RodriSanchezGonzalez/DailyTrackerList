@@ -1,8 +1,12 @@
+import * as formAppReducer from '../../store/app.reducer';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
-import {Subscription} from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +15,14 @@ import {Subscription} from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  isLoading$: Observable<boolean>;
 
-
-  constructor(private formBuilder: FormBuilder, public authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private store: Store<formAppReducer.State>) {}
 
   ngOnInit(): void {
+    this.isLoading$ = this.store.select(formAppReducer.getIsLoadingLoginOrRegistration);
     this.loginForm =  this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(7)]]

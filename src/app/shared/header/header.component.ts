@@ -1,28 +1,24 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import * as formAppReducer from '../../store/app.reducer';
+
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   @Output() toggle = new EventEmitter();
-  authSubscription: Subscription;
-  isAuth: boolean;
+  isAuth: Observable<boolean>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private store: Store<formAppReducer.State>) { }
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-        this.isAuth = authStatus;
-    });
-  }
-
-  ngOnDestroy(): void{
-    this.authSubscription.unsubscribe();
+   this.isAuth = this.store.select(formAppReducer.getIsAuthenticated);
   }
 
   onToggle(): void{

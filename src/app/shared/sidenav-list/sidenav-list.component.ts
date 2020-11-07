@@ -1,33 +1,34 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import * as formAppReducer from '../../store/app.reducer';
+
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
   styleUrls: ['./sidenav-list.component.css']
 })
-export class SidenavListComponent implements OnInit, OnDestroy {
+export class SidenavListComponent implements OnInit {
   @Output() toggle = new EventEmitter();
-  isAuth: boolean;
-  authSubscription: Subscription;
+  isAuth$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {
+  constructor( private authService: AuthService, private store: Store<formAppReducer.State>) {
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    });
-  }
-
-  ngOnDestroy(): void{
-    this.authSubscription.unsubscribe();
+    this.isAuth$ = this.store.select(formAppReducer.getIsAuthenticated);
   }
 
   onToggle(): void{
     this.toggle.emit();
+  }
+
+  clickOnLogout(): void{
+    this.onToggle();
+    this.authService.logout();
   }
 
 }
