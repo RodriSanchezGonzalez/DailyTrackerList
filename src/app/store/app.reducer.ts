@@ -9,9 +9,10 @@ export interface State{
 }
 
 const initialState: State = {
-  isLoadingLoginOrRegistration: false,
-  isAuthenticated: false
+    isLoadingLoginOrRegistration: false,
+    isAuthenticated: false
 };
+
 
 export const appReducers = createReducer(
   initialState,
@@ -28,18 +29,27 @@ export const appReducers = createReducer(
                                                                 isAuthenticated: false}))
 );
 
-export const selectGeneralState = (state: State) => state;
-
+export const test =
+(state) => state.state;
 export const getIsLoadingLoginOrRegistration =
-createSelector(
-  selectGeneralState,
-  (state: State) => state.isLoadingLoginOrRegistration
-);
+createSelector(test, (state:State) => state.isLoadingLoginOrRegistration);
 
-
+export const test2 =
+(state: State) => state.isLoadingLoginOrRegistration;
 export const getIsAuthenticated =
-createSelector(
-  selectGeneralState,
-  (state: State) => state.isAuthenticated
-);
+createSelector(test, (state:State) => state.isAuthenticated);
+
+// Another and better way.
+
+// export const selectGeneralState = createFeatureSelector<State>('state');
+// export const getIsLoadingLoginOrRegistration =
+// createSelector(
+//   selectGeneralState,
+//   (state: State) => state.isLoadingLoginOrRegistration
+// );
+// export const getIsAuthenticated =
+// createSelector(
+//   selectGeneralState,
+//   (state: State) => state.isAuthenticated
+// );
 
