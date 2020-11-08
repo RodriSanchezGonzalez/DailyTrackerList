@@ -29,15 +29,15 @@ export const appReducers = createReducer(
                                                                 isAuthenticated: false}))
 );
 
-export const test =
-(state) => state.state;
+export const selectStore = (state) => state.state;
+
 export const getIsLoadingLoginOrRegistration =
-createSelector(test, (state:State) => state.isLoadingLoginOrRegistration);
+createSelector(selectStore, (state: State) => state.isLoadingLoginOrRegistration);
 
 export const test2 =
 (state: State) => state.isLoadingLoginOrRegistration;
 export const getIsAuthenticated =
-createSelector(test, (state:State) => state.isAuthenticated);
+createSelector(selectStore, (state: State) => state.isAuthenticated);
 
 // Another and better way.
 
