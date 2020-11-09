@@ -34,8 +34,6 @@ export const selectStore = (state) => state.state;
 export const getIsLoadingLoginOrRegistration =
 createSelector(selectStore, (state: State) => state.isLoadingLoginOrRegistration);
 
-export const test2 =
-(state: State) => state.isLoadingLoginOrRegistration;
 export const getIsAuthenticated =
 createSelector(selectStore, (state: State) => state.isAuthenticated);
 

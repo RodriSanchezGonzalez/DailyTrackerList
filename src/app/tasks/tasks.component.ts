@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import * as fromTasksReducer from './tasks-store/tasks.reducer';
 
-import { Subscription } from 'rxjs';
-import { TasksService } from '../services/tasks.service';
-import { delay } from 'rxjs-compat/operator/delay';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-tasks',
@@ -10,25 +11,16 @@ import { delay } from 'rxjs-compat/operator/delay';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-  onGoingTask: boolean;
-  exerciseSubscription: Subscription;
+  onGoingTask$: Observable<boolean>;
 
-  constructor(private tasksService: TasksService) { }
+
+  constructor(private store: Store<fromTasksReducer.State>) { }
 
   ngOnInit(): void {
-    this.onGoingTask = false;
-    this.exerciseSubscription = this.tasksService.taskChanged.subscribe(task => {
-      if (task){
-        this.tasksService.creatingNewTask.next(false);
-        this.onGoingTask = true;
-       } else{
-        this.onGoingTask = false;
-      }
-    });
+    this.onGoingTask$ = this.store.select(fromTasksReducer.selectIsOnGoingTask);
+    this.onGoingTask$.subscribe(valor => console.log(valor));
   }
 
-  toggleOnGoinTask(): void{
-    this.onGoingTask = !this.onGoingTask;
-  }
+
 
 }

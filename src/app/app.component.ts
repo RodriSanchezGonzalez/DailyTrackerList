@@ -19,7 +19,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void{
     this.authService.initAuthListener();
-    this.store.select(formAppReducer.getIsAuthenticated).subscribe(value => console.log(value));
   }
 
   onToggle(): void{

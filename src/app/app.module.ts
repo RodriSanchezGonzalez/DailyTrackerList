@@ -1,4 +1,5 @@
 import * as fromAppReducer from './store/app.reducer';
+import * as fromTasksReducer from './tasks/tasks-store/tasks.reducer';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -58,6 +59,7 @@ import { environment } from 'src/environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule,
     StoreModule.forRoot({state: fromAppReducer.appReducers}),
+    StoreModule.forFeature('tasks', fromTasksReducer.appReducers),
     StoreDevtoolsModule.instrument({
      maxAge: 25, // Retains last 25 states
     }),

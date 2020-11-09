@@ -1,7 +1,10 @@
+import * as fromTasksReducer from '../tasks-store/tasks.reducer';
+
 import { Component, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { StopTaskComponent } from './stop-task.component';
+import { Store } from '@ngrx/store';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
@@ -14,7 +17,9 @@ export class CurrentTaskComponent implements OnInit {
   timerInterval: any;
   barMode: string;
   /*TODO: If the user go away of this view we have to cancell the current task */
-  constructor(private dialog: MatDialog, private taskService: TasksService) { }
+  constructor(private dialog: MatDialog,
+              private taskService: TasksService,
+              private store: Store<fromTasksReducer.State>) { }
 
   ngOnInit(): void {
     this.secondsTimer = 0;

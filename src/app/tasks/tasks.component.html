@@ -1,5 +1,5 @@
-<mat-tab-group *ngIf="!onGoingTask" class="group-tab">
+<mat-tab-group *ngIf="!(this.onGoingTask$ | async)" class="group-tab">
   <mat-tab label="New Task"><app-new-task ></app-new-task></mat-tab>
   <mat-tab label="Completed Tasks"> <app-completed-tasks></app-completed-tasks> </mat-tab>
 </mat-tab-group>
-<app-current-task *ngIf="onGoingTask"></app-current-task>
+<app-current-task *ngIf="this.onGoingTask$ | async"></app-current-task>

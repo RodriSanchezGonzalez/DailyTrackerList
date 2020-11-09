@@ -1,67 +1,54 @@
+import * as fromTasksActions from '../tasks/tasks-store/tasks.actions';
+import * as fromTasksReducer from '../tasks/tasks-store/tasks.reducer';
+
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs/Subject';
+import { Store } from '@ngrx/store';
 import { Task } from '../models/task.model';
 import { TypeTask } from '../models/task-types.model';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
-//  private avaibleTasks: Task[] = [
-//     { id: '0000000001', typeOf: 'Analysis', secondsDuration: 30000 ,  proyect: 'Task Tracker'},
-//     { id: '0000000002', typeOf: 'Coding', secondsDuration: 60504 ,  proyect: 'Task Tracker'},
-//     { id: '0000000003', typeOf: 'Testing', secondsDuration: 1002910 ,  proyect: 'Task Tracker'},
-//     { id: '0000000004', typeOf: 'Architecture', secondsDuration: 60504 ,  proyect: 'Task Tracker'},
-//     { id: '0000000005', typeOf: 'Deploy', secondsDuration: 787787 ,  proyect: 'Task Tracker'},
-//     { id: '0000000006', typeOf: 'Testing', secondsDuration: 1002910 ,  proyect: 'Dating App'},
-//   ];
-
-
-  taskChanged = new Subject<Task>();
-  availableTasksTypes = new Subject<TypeTask[]>();
-  finishedTasks = new Subject<Task[]>();
-  creatingNewTask = new Subject<boolean>();
-
-  private onGoingTask: Task;
 
   constructor( private firestoreDB: AngularFirestore,
-               private snackBar: MatSnackBar) { }
+               private snackBar: MatSnackBar,
+               private store: Store<fromTasksReducer.State>) { }
 
 
   startTask(createdTask: Task): void{
-    this.creatingNewTask.next(true);
-    this.onGoingTask = {...createdTask};
-    this.taskChanged.next({...this.onGoingTask});
+   this.store.dispatch(fromTasksActions.startNewTraining({createdTask: {...createdTask}}));
   }
 
   completedTask(secondsDuration: number): void{
-    this.addDataToDatabase({...this.onGoingTask,
-                              finishDate: new Date(),
-                              state : 'completed',
-                              secondsDuration});
-    this.onGoingTask = null;
-    this.taskChanged.next(null);
+    this.store.select(fromTasksReducer.selectOnGoingTask).pipe(take(1)).subscribe(task => {
+      this.addDataToDatabase({...task,
+                                finishDate: new Date(),
+                                state : 'completed',
+                                secondsDuration});
+      this.store.dispatch(fromTasksActions.stopOnGoingTraining());
+    });
   }
 
-  cancellTask(secondsDuration: number): void{
-    this.addDataToDatabase({...this.onGoingTask,
-      finishDate: new Date(),
-      state : 'cancelled',
-      secondsDuration});
-    this.onGoingTask = null;
-    this.taskChanged.next(null);
+  // TODO: Add bottom to cancell onGoingTask
+  cancelledTask(secondsDuration: number): void{
+    this.store.select(fromTasksReducer.selectOnGoingTask).pipe(take(1)).subscribe(task => {
+      this.addDataToDatabase({...task,
+                                finishDate: new Date(),
+                                state : 'cancelled',
+                                secondsDuration});
+      this.store.dispatch(fromTasksActions.stopOnGoingTraining());
+    });
   }
 
-  getOnGoingTask(): Task{
-    return {...this.onGoingTask};
-  }
 
   fetchCompletedTasks(): void{
     this.firestoreDB.collection('finishedTasks').valueChanges()
     .subscribe((result: Task[]) => {
-      this.finishedTasks.next(result);
+      this.store.dispatch(fromTasksActions.setCompletedTasks({completedTasks: result.slice()}));
      }
      , error => {
       this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
@@ -72,13 +59,14 @@ export class TasksService {
     /*TODO: Keep the subscription and unsubscribe on destroy*/
     this.firestoreDB.collection('availableTaskTypes')
     .valueChanges().subscribe((result: TypeTask[]) => {
-      this.availableTasksTypes.next(result.slice());
+      this.store.dispatch(fromTasksActions.setAvaiableTasks({availableTasks: result.slice()}));
     }, error => {
       this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
     });
   }
 
   private addDataToDatabase(task: Task): void{
+      console.log(task);
       this.firestoreDB.collection('finishedTasks').add(task);
   }
 

@@ -1,12 +1,12 @@
+import * as fromTasksReducer from '../tasks-store/tasks.reducer';
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
-import { Task } from 'src/app/models/task.model';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { TasksService } from 'src/app/services/tasks.service';
 import { TypeTask } from 'src/app/models/task-types.model';
-import { types } from 'util';
-import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 
 @Component({
   selector: 'app-new-task',
@@ -15,11 +15,12 @@ import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 })
 export class NewTaskComponent implements OnInit {
   proyect: string;
+  availableTypesOfTasks$: Observable<TypeTask[]>;
 
-
-  constructor(public tasksService: TasksService) { }
+  constructor(public tasksService: TasksService, private store: Store<fromTasksReducer.State>) { }
 
   ngOnInit(): void {
+    this.availableTypesOfTasks$ = this.store.select(fromTasksReducer.selectAvailableTasks);
     this.tasksService.getAvailableTypesOfTasks();
   }
 

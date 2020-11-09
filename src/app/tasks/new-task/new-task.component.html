@@ -1,11 +1,11 @@
 <form (ngSubmit)="clickStartNewTaks(newTaskForm)" #newTaskForm="ngForm" class="newTaskForm">
 <mat-card  class="new-task">
   <mat-card-title fxLayoutAlign="center">Time to new task!</mat-card-title>
-  <mat-spinner *ngIf="this.tasksService.creatingNewTask | async"></mat-spinner>
-  <mat-card-content fxLayoutAlign="center" *ngIf="(this.tasksService.creatingNewTask | async) != true">
+  <mat-spinner *ngIf="!availableTypesOfTasks$ | async"></mat-spinner>
+  <mat-card-content fxLayoutAlign="center" *ngIf="(availableTypesOfTasks$| async)">
     <mat-form-field>
       <mat-select placeholder="Type of task" ngModel name="tasksType" required>
-        <mat-option *ngFor="let type of tasksService.availableTasksTypes | async" [value]="type">
+        <mat-option *ngFor="let type of availableTypesOfTasks$ | async" [value]="type">
           {{type.typeTask}}
         </mat-option>
       </mat-select>
@@ -15,7 +15,7 @@
       <input matInput type="text" [(ngModel)]="proyect" name="proyect" required>
     </mat-form-field>
   </mat-card-content>
-  <mat-card-actions fxLayoutAlign="center" *ngIf="(this.tasksService.creatingNewTask | async) != true">
+  <mat-card-actions fxLayoutAlign="center" *ngIf="(availableTypesOfTasks$| async)">
     <button type="sumbit" mat-button color="primary" [disabled]="newTaskForm.invalid">Start</button>
   </mat-card-actions>
 </mat-card>
