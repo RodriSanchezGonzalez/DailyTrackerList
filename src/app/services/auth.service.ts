@@ -46,14 +46,13 @@ export class AuthService {
    }
 
   initAuthListener(): void{
-     this.angularFireAuth.authState.subscribe(
-         user => {
-         if (user) {
-         this.store.dispatch(formActions.logInFromFirebase());
+     this.angularFireAuth.authState.subscribe(res => {
+         if (res) {
+         this.store.dispatch(formActions.logInFromFirebase({userFirebaseId: res.uid}));
          }
          else{
          this.store.dispatch(formActions.logoutFromFirebase());
-         this.router.navigateByUrl('/login');
+         this.router.navigateByUrl('/auth/login');
          }
        });
    }

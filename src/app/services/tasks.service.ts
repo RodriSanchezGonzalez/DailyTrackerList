@@ -1,3 +1,4 @@
+import * as fromAppReducer from '../store/app.reducer';
 import * as fromTasksActions from '../tasks/tasks-store/tasks.actions';
 import * as fromTasksReducer from '../tasks/tasks-store/tasks.reducer';
 
@@ -47,13 +48,16 @@ export class TasksService {
 
   fetchCompletedTasks(): void{
     this.firestoreDB.collection('finishedTasks').valueChanges()
-    .subscribe((result: Task[]) => {
-      this.store.dispatch(fromTasksActions.setCompletedTasks({completedTasks: result.slice()}));
-     }
-     , error => {
-      this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
+    .subscribe((result: any[]) => {
+      this.store.select(fromAppReducer.getUserId).pipe(take(1)).subscribe( userId => {
+      this.store.dispatch(fromTasksActions.setCompletedTasks({completedTasks:
+                                                              result.filter(task => task?.userId === userId).slice()}));
+      }, error => {
+        this.snackBar.open(error.message, null, {duration: 5000, verticalPosition: 'top'});
+      });
     });
   }
+
 
   getAvailableTypesOfTasks(): void{
     /*TODO: Keep the subscription and unsubscribe on destroy*/
@@ -66,8 +70,9 @@ export class TasksService {
   }
 
   private addDataToDatabase(task: Task): void{
-      console.log(task);
-      this.firestoreDB.collection('finishedTasks').add(task);
+    this.store.select(fromAppReducer.getUserId).pipe(take(1)).subscribe( userId =>
+      this.firestoreDB.collection('finishedTasks').add({...task, userId})
+    );
   }
 
 }

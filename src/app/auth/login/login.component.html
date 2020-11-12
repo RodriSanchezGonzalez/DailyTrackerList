@@ -1,4 +1,4 @@
-<section class="signup-form">
+
   <form fxLayout="column" fxLayoutAlign="center center"
   [formGroup]="loginForm" (ngSubmit)="clickOnEnter()"
   fxLayoutGap="1rem">
@@ -23,4 +23,4 @@
     [disabled]="loginForm.invalid" *ngIf="(isLoading$ | async) != true">Enter</button>
     <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </form>
-</section>
+

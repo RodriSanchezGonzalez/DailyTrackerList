@@ -9,9 +9,8 @@ import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   {path: '',  component: HomeComponent},
-  {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]},
-  {path: 'signup', component: SignupComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule), canLoad: [AuthGuard]},
+  {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}
 ];
 
 @NgModule({

@@ -2,8 +2,8 @@
   <button mat-icon-button (click)="onToggle()" fxHide.gt-xs><mat-icon>code</mat-icon></button>
   <div routerLink="/" class="logo">NG Task Tracker</div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-    <a routerLink="/signup" *ngIf="!(isAuth |async)">Signup</a>
-    <a routerLink="/login" *ngIf="!(isAuth |async)">Login</a>
+    <a routerLink="auth/signup" *ngIf="!(isAuth |async)">Signup</a>
+    <a routerLink="auth/login" *ngIf="!(isAuth |async)">Login</a>
     <a routerLink="/tasks" *ngIf="(isAuth |async)">Tasks</a>
     <a *ngIf="isAuth | async" (click)="clickOnLogout()" class="logout">Logout</a>
   </div>

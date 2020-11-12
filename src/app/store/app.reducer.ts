@@ -4,11 +4,13 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { createReducer, on } from '@ngrx/store';
 
 export interface State{
+  userId: string;
   isLoadingLoginOrRegistration: boolean;
   isAuthenticated: boolean;
 }
 
 const initialState: State = {
+    userId: null,
     isLoadingLoginOrRegistration: false,
     isAuthenticated: false
 };
@@ -23,7 +25,8 @@ export const appReducers = createReducer(
   on(fromAppActions.loginOrRegistrationSuccesfully, state => ({...state,
                                                                isLoadingLoginOrRegistration: false,
                                                                isAuthenticated: true})),
-  on(fromAppActions.logInFromFirebase, state => ({...state,
+  on(fromAppActions.logInFromFirebase, (state, action ) => ({...state,
+                                                                userId: action.userFirebaseId,
                                                                 isAuthenticated: true})),
   on(fromAppActions.logoutFromFirebase, state => ({...state,
                                                                 isAuthenticated: false}))
@@ -36,6 +39,9 @@ createSelector(selectStore, (state: State) => state.isLoadingLoginOrRegistration
 
 export const getIsAuthenticated =
 createSelector(selectStore, (state: State) => state.isAuthenticated);
+
+export const getUserId =
+createSelector(selectStore, (state: State) => state.userId);
 
 // Another and better way.
 

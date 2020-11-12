@@ -13,7 +13,8 @@ export const loginOrRegistrationWithError = createAction(
 );
 
 export const logInFromFirebase = createAction(
-  '[Firebase Backend] Task: AuthState observable value has user'
+  '[Firebase Backend] Task: AuthState observable value has user',
+  props<{userFirebaseId: string}>()
 );
 
 export const logoutFromFirebase = createAction(

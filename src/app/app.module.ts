@@ -20,11 +20,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './auth/login/login.component';
 import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { NgModule } from '@angular/core';
 import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { StopTaskComponent } from './tasks/current-task/stop-task.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
@@ -36,15 +34,8 @@ import { environment } from 'src/environments/environment';
   declarations: [
     AppComponent,
     HomeComponent,
-    SignupComponent,
-    LoginComponent,
-    TasksComponent,
     HeaderComponent,
     SidenavListComponent,
-    NewTaskComponent,
-    CurrentTaskComponent,
-    CompletedTasksComponent,
-    StopTaskComponent
     ],
   imports: [
     BrowserModule,

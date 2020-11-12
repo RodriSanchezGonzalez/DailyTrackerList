@@ -1,12 +1,12 @@
 <mat-nav-list >
   <mat-list-item *ngIf="!(isAuth$ | async )">
-    <a mat-line routerLink="/signup" fxLayout fxLayoutAlign="baseline center" (click)="onToggle()">
+    <a mat-line routerLink="auth/signup" fxLayout fxLayoutAlign="baseline center" (click)="onToggle()">
       <mat-icon matListIcon>emoji_people</mat-icon>
      <span class="nav-span">Signup</span>
   </a>
   </mat-list-item>
   <mat-list-item *ngIf="!(isAuth$ | async )">
-    <a mat-line routerLink="/login" fxLayout fxLayoutAlign="baseline center" (click)="onToggle()">
+    <a mat-line routerLink="auth/login" fxLayout fxLayoutAlign="baseline center" (click)="onToggle()">
     <mat-icon matListIcon>login</mat-icon>
     <span class="nav-span">Login</span>
   </a>
