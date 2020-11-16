@@ -13,7 +13,7 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(fromAppActions.logInFromFirebase),
-        tap(() => this.router.navigate(['/tasks']))
+        tap(() => this.router.navigate(['/home']))
       ),
     {
       dispatch: false,

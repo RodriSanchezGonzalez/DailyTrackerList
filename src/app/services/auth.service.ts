@@ -1,3 +1,4 @@
+import * as firebase from 'firebase/app';
 import * as formActions from '../store/app.actions';
 import * as formAppReducer from '../store/app.reducer';
 
@@ -8,7 +9,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../models/user.model';
-import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,20 @@ export class AuthService {
   constructor(private router: Router,
               private angularFireAuth: AngularFireAuth,
               private snackBar: MatSnackBar,
-              private store: Store<formAppReducer.State>) {
+              private store: Store<formAppReducer.State>
+               ) {
+   }
+
+
+   loginWithGmail(): void{
+    this.angularFireAuth.signInWithPopup(
+    new firebase.default.auth.GoogleAuthProvider())
+    .then((result) => {
+        this.router.navigate(['/home']);
+    })
+   .catch((error) => {
+     window.alert(error);
+   });
    }
 
    registerUser(authData: AuthData): void{

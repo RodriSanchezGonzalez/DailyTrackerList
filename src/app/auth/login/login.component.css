@@ -2,9 +2,17 @@
   padding: 1rem;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 mat-form-field {
   width: 18.75rem;
+}
+
+.gmail-button {
+  margin-top: 1rem;
+  padding: 0.3rem;
+  padding-right: 1rem;
+  width: fit-content;
 }
