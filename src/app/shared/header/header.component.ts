@@ -13,12 +13,12 @@ import { Store } from '@ngrx/store';
 })
 export class HeaderComponent implements OnInit {
   @Output() toggle = new EventEmitter();
-  isAuth: Observable<boolean>;
+  isAuth$: Observable<boolean>;
 
   constructor(private authService: AuthService, private store: Store<formAppReducer.State>) { }
 
   ngOnInit(): void {
-   this.isAuth = this.store.select(formAppReducer.getIsAuthenticated);
+   this.isAuth$ = this.store.select(formAppReducer.getIsAuthenticated);
   }
 
   onToggle(): void{

@@ -39,4 +39,8 @@ export class LoginComponent implements OnInit {
     this.authService.loginWithGmail();
   }
 
+  clickLoginWithGithub(): void{
+    this.authService.loginWithGithub();
+  }
+
 }

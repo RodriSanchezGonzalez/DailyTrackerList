@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
-  declarations: [ LoginComponent, SignupComponent ],
+  declarations: [  SignupComponent ],
   imports: [CommonModule,
            AuthRoutingModule,
             FormsModule,

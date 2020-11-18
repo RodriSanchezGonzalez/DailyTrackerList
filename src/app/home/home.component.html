@@ -1,4 +1,5 @@
-<div class="welcome" fxLayout.xs="column" fxLayout.gt-lg="row" fxLayoutAlign="center center">
+  <app-login *ngIf="!(isAuth$ | async )"></app-login>
+  <div class="welcome" >
   <section class="home-card roll-in-blurred-left">
     <div class="icon-container"><span class="material-icons icon">
       push_pin

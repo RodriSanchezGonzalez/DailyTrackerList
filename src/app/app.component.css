@@ -7,11 +7,13 @@ main {
   height: 100%;
   width: 100%;
 }
+
 mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
   height: 100%;
 }
+
 mat-sidenav {
   width: 15.625rem;
 }

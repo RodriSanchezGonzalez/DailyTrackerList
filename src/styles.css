@@ -10,21 +10,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* .mat-tab-body-content {
-  overflow: hidden !important;
+.mat-drawer-content {
+  overflow: unset !important;
 }
 
-.mat-tab-body.mat-tab-body-active {
-  overflow-y: hidden !important;
-}
-
-.group-tab .mat-tab-body-wrapper {
-  height: 100%;
-  overflow: hidden !important;
-} */
-
-.mat-card-actions,
-.mat-card-subtitle,
-.mat-card-content {
-  flex-direction: column !important;
+.mat-drawer-container {
+  overflow: auto !important;
 }

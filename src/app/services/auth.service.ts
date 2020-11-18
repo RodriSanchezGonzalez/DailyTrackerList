@@ -36,6 +36,18 @@ export class AuthService {
    });
    }
 
+
+   loginWithGithub(): void{
+    this.angularFireAuth.signInWithPopup(
+    new firebase.default.auth.GithubAuthProvider())
+    .then((result) => {
+        this.router.navigate(['/home']);
+    })
+   .catch((error) => {
+     window.alert(error);
+   });
+   }
+
    registerUser(authData: AuthData): void{
     //  this.loadingLoginOrRegistration.next(true); REDUX NOW
     this.store.dispatch(formActions.startLoadingLoginOrRegistration());
@@ -65,7 +77,7 @@ export class AuthService {
          }
          else{
          this.store.dispatch(formActions.logoutFromFirebase());
-         this.router.navigateByUrl('/auth/login');
+         this.router.navigateByUrl('/home');
          }
        });
    }

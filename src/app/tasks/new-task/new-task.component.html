@@ -2,7 +2,7 @@
 <mat-card  class="new-task">
   <mat-card-title fxLayoutAlign="center">Time to new task!</mat-card-title>
   <mat-spinner *ngIf="!availableTypesOfTasks$ | async"></mat-spinner>
-  <mat-card-content fxLayoutAlign="center" *ngIf="(availableTypesOfTasks$| async)">
+  <mat-card-content fxLayoutAlign="center" fxLayout="column" *ngIf="(availableTypesOfTasks$| async)">
     <mat-form-field>
       <mat-select placeholder="Type of task" ngModel name="tasksType" required>
         <mat-option *ngFor="let type of availableTypesOfTasks$ | async" [value]="type">
